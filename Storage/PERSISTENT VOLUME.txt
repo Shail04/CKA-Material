@@ -1,0 +1,14 @@
+ PERSISTENT VOLUME
+
+kubect create -f (nameofvolumefile .yaml)
+kubectl get pv/persistentvolumne
+
+PERSISTENT VOLUME CLAIMS
+
+kubect create -f (nameofvolumeclaimfile .yaml)
+kubectl get pvc/persistentvolumneclaim
+kubectl delete pvc (nameofpvc)
+
+
+
+Reference URL: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#claims-as-volumes

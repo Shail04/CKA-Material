@@ -1,0 +1,34 @@
+#Switching
+ip link
+ip  addr add (ip-adress/24) dev (iplink) #to enable a communication
+ping (ip-address)
+
+#Routing
+route
+ip route add (ip-address/24 via ip-address) 
+
+
+#IP link is to list an modify interfaces on the host.
+IP addr #command is to see the IP addresses assigned to those interfaces.
+IP addr add #command is used to set IP addresses on the interfaces.
+#Now, remember, changes made using these commands are only valid till a restart. If you want to persist these changes, you must set them in the etc/network/interfaces file. IP route or simply the route command is used to view the routing table. And IP route add command is used to add entries into the routing table.
+
+#DNS
+/etc/hosts
+/etc/resolve.conf
+/etc/nsswitch.conf
+nslookup (dns-name) / dig (dns-name)
+
+#Network Namespaces
+ip netns add (namespaces)
+ip netns exec (namespace) ip link  /  ip -n (namespace) link
+
+
+
+#An important tip about deploying Network Addons in a Kubernetes cluster.
+https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+https://kubernetes.io/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model
+
+
+

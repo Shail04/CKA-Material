@@ -1,0 +1,39 @@
+CLUSTER MAINTENANCE
+
+kubectl drain (nameofnode)
+kubectl cordon (nameofnode)
+kubectl uncordon (nameofnode)
+
+
+CLUSTERS UPGRADE PROCESS
+
+cat /etc/*release*   (to check which distribution we're using)
+
+(Masternode)
+kubeadm upgrade plan
+apt-get upgrade -y kubeadm=(versionnuberyouwanttoupgrade)
+kubeadm upgrade apply (versionnumber)
+apt-get upgrade -y kubelet=(versionnuberyouwanttoupgrade)
+systemctl restart kubelet
+
+(Workernode)
+kubectl drain (nameofnode)
+apt-get upgrade -y kubeadm=(versionnuberyouwanttoupgrade)
+apt-get upgrade -y kubelet=(versionnuberyouwanttoupgrade)
+kubeadm upgrade node config --kubelet-version (versionnumber)
+systemctl restart kubelet
+kubectl uncordon (nameofnode)
+
+BACKUP & RESTORE
+
+kubectl get --all-namespaces -o yaml > all-deploy-services.yaml  (backup resource configs)
+etcdctl \ snapshot save snapshot.db
+(optional)
+ETCDCTL_API=3 etcdctl --endpoints=https://[127.0.0.1]:2379 \
+--cacert=/etc/kubernetes/pki/etcd/ca.crt \
+--cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key \
+snapshot save /opt/snapshot-pre-boot.db
+
+Snapshot saved at /opt/snapshot-pre-boot.db
+root@controlplane:~#
